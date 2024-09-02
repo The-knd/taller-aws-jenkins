@@ -11,20 +11,11 @@ pipeline {
             }
         }
 
-        stage('Build Docker Images') {
-            steps {
-                script {
-                    // Construir las imágenes Docker
-                    sh 'docker-compose build'
-                }
-            }
-        }
-
         stage('Deploy Application') {
             steps {
                 script {
                     // Desplegar la aplicación usando docker-compose
-                    sh 'docker-compose up -d'
+                    sh 'sudo docker compose up -d --build'
                 }
             }
         }
@@ -42,7 +33,7 @@ pipeline {
     post {
         always {
             // Mostrar los contenedores en ejecución
-            sh 'docker ps'
+            sh 'sudo docker ps'
         }
         success {
             echo 'Deployment successful!'
