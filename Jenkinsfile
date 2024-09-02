@@ -1,5 +1,7 @@
 pipeline {
-    agent any
+    agent {
+        label 'App'
+    }
 
     stages {
         stage('Checkout Code') {
