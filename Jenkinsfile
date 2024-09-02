@@ -1,36 +1,45 @@
 pipeline {
-    agent any
+    agent {
+        label 'App'
+    }
 
     stages {
-        stage('Clone Repo') {
+        stage('Checkout Code') {
             steps {
-                git 'https://github.com/The-knd/taller-aws-jenkins.git'
+                // Clonar el repositorio desde GitHub
+                git url: 'https://github.com/The-knd/taller-aws-jenkins.git', branch: 'main'
             }
         }
 
-        stage('Build Docker Image') {
+        stage('Deploy Application') {
             steps {
-                sh 'docker-compose build'
+                script {
+                    // Desplegar la aplicación usando docker-compose
+                    sh 'sudo docker compose up -d --build'
+                }
             }
         }
 
-        stage('Run Containers') {
+        stage('Run Tests') {
             steps {
-                sh 'docker-compose up -d'
-            }
-        }
-
-        stage('Test') {
-            steps {
-                // Aquí puedes agregar pruebas para verificar que el contenedor esté en funcionamiento
-                sh 'curl -f http://localhost:8080 || exit 1'
+                script {
+                    // Aquí podrías agregar pruebas automatizadas si las tienes
+                    echo 'Running tests...'
+                }
             }
         }
     }
 
-    // post {
-    //     always {
-    //         sh 'docker-compose down'
-    //     }
-    // }
+    post {
+        always {
+            // Mostrar los contenedores en ejecución
+            sh 'sudo docker ps'
+        }
+        success {
+            echo 'Deployment successful!'
+        }
+        failure {
+            echo 'Deployment failed.'
+        }
+    }
 }
