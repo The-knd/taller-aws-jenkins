@@ -1,11 +1,14 @@
-# Imagen base de PHP con Apache
+# Usar la imagen base de PHP con Apache
 FROM php:8.0-apache
 
-# Instalar extensiones necesarias de PHP
-RUN docker-php-ext-install mysqli
+# Instalar extensiones de PHP necesarias
+RUN docker-php-ext-install mysqli pdo pdo_mysql
 
-# Copiar el código fuente a la imagen
+# Copiar los archivos de la aplicación en el directorio raíz de Apache
 COPY src/ /var/www/html/
 
-# Configurar permisos adecuados para la carpeta de Apache
+# Ajustar permisos
 RUN chown -R www-data:www-data /var/www/html
+
+# Exponer el puerto 80
+EXPOSE 80

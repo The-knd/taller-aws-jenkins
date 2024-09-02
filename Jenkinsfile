@@ -1,33 +1,52 @@
 pipeline {
     agent any
-    
+
     stages {
-        stage('Clonar Repositorio') {
+        stage('Checkout Code') {
             steps {
-                git 'https://github.com/tu-usuario/my-php-app.git'
+                // Clonar el repositorio desde GitHub
+                git url: 'https://github.com/The-knd/taller-aws-jenkins.git', branch: 'main'
             }
         }
-        stage('Construir Imagen Docker') {
+
+        stage('Build Docker Images') {
             steps {
-                sh 'docker build -t my-php-app .'
+                script {
+                    // Construir las imágenes Docker
+                    sh 'docker-compose build'
+                }
             }
         }
-        stage('Configurar Base de Datos') {
+
+        stage('Deploy Application') {
             steps {
-                sh '''
-                mysql -h your-rds-endpoint -u your-username -pyour-password -e "CREATE DATABASE IF NOT EXISTS your_database;"
-                mysql -h your-rds-endpoint -u your-username -pyour-password your_database < sql/init.sql
-                '''
+                script {
+                    // Desplegar la aplicación usando docker-compose
+                    sh 'docker-compose up -d'
+                }
             }
         }
-        stage('Correr Aplicación en Docker') {
+
+        stage('Run Tests') {
             steps {
-                sh '''
-                docker stop my-php-app || true
-                docker rm my-php-app || true
-                docker run -d -p 80:80 --name my-php-app my-php-app
-                '''
+                script {
+                    // Aquí podrías agregar pruebas automatizadas si las tienes
+                    echo 'Running tests...'
+                }
             }
+        }
+    }
+
+    post {
+        always {
+            // Mostrar los contenedores en ejecución
+            sh 'docker ps'
+        }
+        success {
+            echo 'Deployment successful!'
+        }
+        failure {
+            echo 'Deployment failed.'
         }
     }
 }
