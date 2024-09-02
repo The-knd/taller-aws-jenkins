@@ -1,8 +1,8 @@
 <?php
-$host = 'db';  // Nombre del servicio de MySQL en docker-compose
-$dbname = 'your_database_name';
-$username = 'your_username';
-$password = 'your_password';
+$host = 'stacktalleraws-rdsinstance-hjq7zkuf8r5c.cvzx8qh37fom.us-east-1.rds.amazonaws.com';  // Nombre del servicio de MySQL en docker-compose
+$dbname = 'crud_app';
+$username = 'admin';
+$password = 'adminpass';
 
 try {
     // Conectar a la base de datos MySQL
