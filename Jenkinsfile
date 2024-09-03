@@ -1,6 +1,6 @@
 pipeline {
     agent {
-            label 'nombre de prueba'
+            label 'App'
     }
 
     stages {
