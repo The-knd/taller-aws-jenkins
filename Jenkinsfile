@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Clonar Repositorio') {
             steps {
-                git 'https://github.com/the-knd/taller-aws-jenkins.git'
+                git branch: 'main', url: 'https://github.com/The-knd/taller-aws-jenkins.git'
             }
         }
 
