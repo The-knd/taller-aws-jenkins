@@ -1,6 +1,7 @@
 pipeline {
-    agent any
-
+    agent {
+            label 'nombre de prueba'
+    }
 
     stages {
         stage('Clean Docker Environment') {
@@ -21,7 +22,7 @@ pipeline {
                 }
             }
         }
-        
+
         stage('Clonar Repositorio') {
             steps {
                 git branch: 'main', url: 'https://github.com/The-knd/taller-aws-jenkins.git'
