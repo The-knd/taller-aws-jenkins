@@ -1,45 +1,27 @@
 pipeline {
-    agent {
-        label 'App'
-    }
+    agent any
 
     stages {
-        stage('Checkout Code') {
+        stage('Clonar Repositorio') {
             steps {
-                // Clonar el repositorio desde GitHub
-                git url: 'https://github.com/The-knd/taller-aws-jenkins.git', branch: 'main'
+                git 'https://github.com/the-knd/taller-aws-jenkins.git'
             }
         }
 
-        stage('Deploy Application') {
+        stage('Construir Imagen Docker') {
             steps {
                 script {
-                    // Desplegar la aplicación usando docker-compose
-                    sh 'sudo docker compose up -d --build'
+                    dockerImage = docker.build("php-crud-app")
                 }
             }
         }
 
-        stage('Run Tests') {
+        stage('Ejecutar Contenedor Docker') {
             steps {
                 script {
-                    // Aquí podrías agregar pruebas automatizadas si las tienes
-                    echo 'Running tests...'
+                    dockerImage.run('-p 8080:80')
                 }
             }
-        }
-    }
-
-    post {
-        always {
-            // Mostrar los contenedores en ejecución
-            sh 'sudo docker ps'
-        }
-        success {
-            echo 'Deployment successful!'
-        }
-        failure {
-            echo 'Deployment failed.'
         }
     }
 }

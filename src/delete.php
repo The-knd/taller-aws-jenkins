@@ -1,11 +1,10 @@
 <?php
-include 'db.php';
+require 'db.php';
 
 $id = $_GET['id'];
 
-$stmt = $pdo->prepare("DELETE FROM your_table WHERE id = ?");
+$stmt = $pdo->prepare("DELETE FROM items WHERE id = ?");
 $stmt->execute([$id]);
 
-echo "Record deleted successfully!";
-header("Location: read.php");
-exit;
+header('Location: index.php');
+?>

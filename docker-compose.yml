@@ -9,16 +9,14 @@ services:
     depends_on:
       - db
 
-  db:
-    image: mysql:8.0
-    environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_DATABASE: your_database_name
-      MYSQL_USER: your_username
-      MYSQL_PASSWORD: your_password
-    volumes:
-      - db_data:/var/lib/mysql
-      - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql
+  environment:
+      - DB_HOST=stacktalleraws-rdsinstance-hjq7zkuf8r5c.cvzx8qh37fom.us-east-1.rds.amazonaws.com
+      - DB_USER=admin
+      - DB_PASSWORD=adminpass
+      - DB_NAME=crud_db
+    networks:
+      - webnet
 
-volumes:
-  db_data:
+networks:
+  webnet:
+    driver: bridge

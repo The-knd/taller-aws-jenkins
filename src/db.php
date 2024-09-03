@@ -1,15 +1,19 @@
 <?php
-$host = 'stacktalleraws-rdsinstance-hjq7zkuf8r5c.cvzx8qh37fom.us-east-1.rds.amazonaws.com';  // Nombre del servicio de MySQL en docker-compose
-$dbname = 'crud_app';
-$username = 'admin';
-$password = 'adminpass';
+$servername = getenv('DB_HOST');
+$username = getenv('DB_USER');
+$password = getenv('DB_PASSWORD');
+$dbname = getenv('DB_NAME');
 
 try {
-    // Conectar a la base de datos MySQL
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+    $pdo = new PDO("mysql:host=$host", $user, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+    // Leer el contenido de db.sql y ejecutar las consultas
+    $sql = file_get_contents('/var/www/html/db.sql');
+    $pdo->exec($sql);
+
 } catch (PDOException $e) {
-    echo 'Connection failed: ' . $e->getMessage();
+    echo 'Error: ' . $e->getMessage();
+    exit();
 }
 ?>
