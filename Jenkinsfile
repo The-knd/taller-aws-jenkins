@@ -10,13 +10,13 @@ pipeline {
                     // Detiene todos los contenedores en ejecución
                     sh """
                     if [ \$(docker ps -q) ]; then
-                        docker stop \$(docker ps -q)
+                        sudo docker stop \$(docker ps -q)
                     fi
                     """
                     // Elimina todos los contenedores detenidos
                     sh """
                     if [ \$(docker ps -a -q) ]; then
-                        docker rm \$(docker ps -a -q)
+                        sudo docker rm \$(docker ps -a -q)
                     fi
                     """
                 }
@@ -32,7 +32,7 @@ pipeline {
         stage('Construir Imagen Docker') {
             steps {
                 script {
-                    dockerImage = docker.build("php-crud-app")
+                    sh 'sudo docker build -t php-crud-app .'
                 }
             }
         }
@@ -40,7 +40,7 @@ pipeline {
         stage('Ejecutar Contenedor Docker') {
             steps {
                 script {
-                    dockerImage.run('-p 8080:80')
+                     sh 'sudo docker run -p 8080:80 php-crud-app'
                 }
             }
         }
