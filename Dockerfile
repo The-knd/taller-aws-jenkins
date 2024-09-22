@@ -5,7 +5,7 @@ FROM php:8.0-apache
 RUN docker-php-ext-install mysqli pdo pdo_mysql
 
 # Copiar los archivos de la aplicación en el directorio raíz de Apache
-COPY src/ /var/www/html/
+#COPY src/ /var/www/html/
 
 # Ajustar permisos
 RUN chown -R www-data:www-data /var/www/html
