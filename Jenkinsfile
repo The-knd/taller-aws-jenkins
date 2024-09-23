@@ -9,12 +9,12 @@ pipeline {
                 script {
                     // Detiene todos los contenedores en ejecución y elimina todos los contenedores detenidos
                     sh '''
-                    if [ "$(docker ps -q)" ]; then
-                        sudo docker stop $(docker ps -q)
+                    if [ "$(sudo docker ps -q)" ]; then
+                        sudo docker stop $(sudo docker ps -q)
                     fi
 
-                    if [ "$(docker ps -a -q)" ]; then
-                        sudo docker rm $(docker ps -a -q)
+                    if [ "$(sudo docker ps -a -q)" ]; then
+                        sudo docker rm $(sudo docker ps -a -q)
                     fi
                     '''
                 }
