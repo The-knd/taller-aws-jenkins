@@ -52,7 +52,7 @@ pipeline {
         stage('Ejecutar Contenedor Docker') {
             steps {
                 script {
-                    sh 'sudo docker run -p 8080:80 php-crud-app'
+                    sh 'sudo docker run -d -p 80:80 php-crud-app'
                 }
             }
         }
