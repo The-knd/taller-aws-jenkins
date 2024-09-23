@@ -9,13 +9,13 @@ services:
     depends_on:
       - db
 
-  environment:
-      - DB_HOST=stacktalleraws-rdsinstance-hjq7zkuf8r5c.cvzx8qh37fom.us-east-1.rds.amazonaws.com
-      - DB_USER=admin
-      - DB_PASSWORD=adminpass
-      - DB_NAME=crud_db
-    networks:
-      - webnet
+    environment:
+        - DB_HOST=teststack-rdsinstance-tc2ipnofo2uq.cvzx8qh37fom.us-east-1.rds.amazonaws.com
+        - DB_USER=admin
+        - DB_PASSWORD=adminpass
+        - DB_NAME=crud_db
+      networks:
+        - webnet
 
 networks:
   webnet:
