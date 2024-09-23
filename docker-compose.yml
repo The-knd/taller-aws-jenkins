@@ -16,8 +16,8 @@ services:
         - DB_USER=admin
         - DB_PASSWORD=adminpass
         - DB_NAME=crud_db
-      networks:
-        - webnet
+    networks:
+      - webnet
 
 networks:
   webnet:
