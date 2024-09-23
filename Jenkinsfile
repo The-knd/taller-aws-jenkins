@@ -52,7 +52,15 @@ pipeline {
         stage('Ejecutar Contenedor Docker') {
             steps {
                 script {
-                    sh 'sudo docker run -d -p 80:80 php-crud-app'
+                    sh 'sudo docker-compose up -d'
+                }
+            }
+        }
+
+        stage('Ver Logs de Contenedor') {
+            steps {
+                script {
+                    sh 'sudo docker-compose logs'
                 }
             }
         }
