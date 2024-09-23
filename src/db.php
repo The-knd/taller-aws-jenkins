@@ -9,7 +9,7 @@ try {
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     // Leer el contenido de db.sql y ejecutar las consultas
-    $sql = file_get_contents('/var/www/html/db.sql');
+    $sql = file_get_contents('/var/www/html/init.sql');
     $pdo->exec($sql);
 
 } catch (PDOException $e) {
