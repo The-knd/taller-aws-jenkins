@@ -8,8 +8,8 @@ services:
       - "80:80"
     volumes:
       - ./src:/var/www/html
-    depends_on:
-      - db
+    # depends_on:
+    #   - db
 
     environment:
         - DB_HOST=teststack-rdsinstance-tc2ipnofo2uq.cvzx8qh37fom.us-east-1.rds.amazonaws.com
